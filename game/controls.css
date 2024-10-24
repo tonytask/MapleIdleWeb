@@ -1,0 +1,45 @@
+body{
+    background-color:grey;
+    margin: 1%;
+}
+
+h1{
+    color:aqua;
+    text-align:center;
+    font-size:7vw;
+    margin-bottom:1%;
+}
+
+p{
+    text-align:left;
+    color:azure;
+    font-size:2vw;
+}
+
+h2{
+    text-align:center;
+    font-size:4vw;
+    border: 2px solid powderblue;
+    padding: 1%;
+    margin: 2%;
+    margin-left:40%;
+    margin-right:40%;
+}
+
+a:link{
+    color:azure;
+    background-color:transparent;
+    text-decoration: none;
+}
+
+a:hover{
+    color:cadetblue;
+    background-color:red;
+    text-decoration:underline;
+}
+
+a:visited{
+    color:azure;
+    background-color:transparent;
+    text-decoration: none;
+}

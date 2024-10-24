@@ -1,0 +1,247 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+li{
+    font-size:1.5vw;
+}
+
+
+span{
+    font-size:1.25vw;
+}
+
+.stat-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.stat-bar span {
+    margin-right: 5px;
+}
+
+.stat-bar progress {
+    flex: 1;
+    margin-left: 5px;
+    height: 12px; /* Adjust the height if needed */
+}
+
+.hidden{
+    display:none;
+}
+
+
+.container {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    padding: 5px;
+    position: relative;
+}
+
+.left-panel, .right-panel {
+    width: 48%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Space between buttons */
+}
+
+.equipment-panel,
+.shop-panel,
+.inventory-panel,
+.skill-panel,
+.achievement-panel {
+    position: absolute;
+    bottom: 5px;
+    width: calc(100% - 40px);
+    max-width: 35%;
+    max-height: 35%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.equipment-panel {
+    left: 5px;
+}
+
+.shop-panel {
+    left: 5px;
+}
+
+.skill-panel {
+    left: 5px;
+}
+
+.achievement-panel {
+    left: 5px;
+}
+
+.inventory-panel {
+    right: 5px;
+}
+
+.panel {
+    display: grid;
+}
+
+.panel:not(.hidden) {
+    display: block;
+}
+
+
+.inventory-grid, .equipment-grid, .skill-grid, .shop-grid, .achievement-grid{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    justify-items: center;
+}
+
+img {
+    width: 28px;
+    height: 28px;
+}
+
+.responsive-image
+{
+    width:200%;
+    height:auto;
+    max-width:96px;
+    max-height:96px;
+}
+
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color:rgba(0,150,150,0.95);
+    color:black;
+    text-align: center;
+    border-radius: 5px;
+    padding: 3px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position above the image */
+    left: 50%;
+    margin-left: -70px; /* Center the tooltip */
+    opacity: 25;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.panel-button {
+    margin: 5px;
+    padding: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.panel-button:hover {
+    background-color: #45a049;
+}
+
+.hidden {
+    display: none;
+}
+
+.toggle-buttons {
+    position: absolute;
+    bottom: 25%; /* Adjust this value as needed */
+    /*transform: translateX(-50%);*/
+    display: flex;
+    gap: 1px;
+}
+
+
+@media (max-width: 768px) {
+    li, span {
+        font-size: 3vw;
+    }
+
+    .left-panel, .right-panel {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .equipment-panel,
+    .shop-panel,
+    .inventory-panel,
+    .skill-panel,
+    .achievement-panel {
+        width: calc(100% - 10px);
+        max-width: none;
+        max-height: none;
+        position: static;
+    }
+
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-row {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .inventory-grid, .equipment-grid, .skill-grid, .shop-grid, .achievement-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .toggle-buttons {
+        position: static;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    li, span {
+        font-size: 4vw;
+    }
+
+    .inventory-grid, .equipment-grid, .skill-grid, .shop-grid, .achievement-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    img {
+        width: 24px;
+        height: 24px;
+    }
+}

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Maple Idle</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+
+
+            <p>Player</p>
+            <div class="stat-bar">
+                <span>HP:</span>
+                <span id="playerCurrentHP">50</span><span>/</span><span id="playerMaxHP">50</span>
+                <progress id="playerHPBar" value="100" max="100" style="accent-color:red"></progress>
+            </div>
+            
+            <div class="stat-bar">
+                <span>MP:</span>
+                <span id="playerCurrentMP">5</span><span>/</span><span id="playerMaxMP">5</span>
+                <progress id="playerMPBar" value="100" max="100" style="accent-color:blue"></progress>
+            </div>
+
+
+            <p>Stats</p>
+            <ul>
+                <li>Level: <span id="level">1</span></li>
+                <li>Stat Points: <span id="statPoints">0</span></li>
+                <li>STR: 
+                    <span id="STR" title="Increases damage and HP Recovery">12</span>
+                    <button id="buttonSTR" type="button" onclick="addSTR()">+</button>
+                </li>
+                <li>DEX: 
+                    <span id="DEX">4</span>
+                    <button id="buttonDEX" type="button" onclick="addDEX()">+</button>
+                </li>
+                <li>ATT: <span id="ATT">17</span></li>
+                <li>Damage: 
+                    <span id="minDamage">1</span>
+                    <span>-</span>
+                    <span id="maxDamage">5</span>
+                </li>
+                <li>Critical Chance: <span id="criticalChance">0</span>%</li>
+                <li>Critical Damage: <span id="criticalDamage">150</span>%</li>
+                <li>Armor: <span id="armor">15</span></li>
+                <li>EXP Multiplier: <span id="expMultiplier">100</span>%</li>
+                <li>Meso Multiplier: <span id="mesoMultiplier">100</span>%</li>
+                <li>Exp: 
+                    <span id="currentEXP">0</span>
+                    <span>/</span>
+                    <span id="expToLevel">15</span>
+                    <progress id="EXPBar" value="100" max="100" style="accent-color:lime"></progress>
+                </li>
+            </ul>
+
+            
+        </div>
+
+
+        <div class="toggle-buttons" style="text-align: center;">
+            <button class="panel-button" onclick="showEquipment()">Equipment</button>
+            <button class="panel-button" onclick="showShop()">Shop</button>
+            <button class="panel-button" onclick="showSkills()">Skills</button>
+            <button class="panel-button" onclick ="showAchievements()">Achievements</button>
+        </div>
+
+
+
+
+        <div class="equipment-panel panel">
+            <p style="text-align: center">Equipment</p>
+            <div class="equipment-grid">
+                <div class="tooltip">
+                    <img id="hat" src="./images/empty.png" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="cape" src="./images/empty.png"  style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="top" src="./images/white%20undershirt.png" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="3" data-upgrades="7">
+                </div>
+                <div class="tooltip">
+                    <img id="weapon" src="./images/sword.png"  style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="17" data-armor="0" data-upgrades="7">
+                </div>
+                <div class="tooltip">
+                    <img id="bottom" src="./images/blue%20jean%20shorts.png" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="2" data-upgrades="7">
+                </div>
+                <div class="tooltip">
+                    <img id="gloves" src="./images/empty.png"  style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="shoes" src="./images/leather%20sandals.png"  style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="2" data-upgrades="7">
+                </div>
+            </div>
+        </div>
+
+        <div class="shop-panel panel hidden">
+            <p style="text-align: center">Shop</p>
+            <div class="shop-grid">
+                <div class="tooltip">
+                    <img id="shopItem1" src="./images/booster.png" onclick="boosterUpgrade()" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="shopItem2" src="./images/mastery.png" onclick="masteryUpgrade()" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="shopItem3" src="./images/mesoup.png" onclick="mesoUpgrade()" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="shopItem4" src="./images/expup.png" onclick="expUpgrade()" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <!-- Add more shop items as needed -->
+            </div>
+        </div>
+
+        <div class="skill-panel panel hidden">
+            <p style="text-align: center">Skills</p>
+            <div class="skill-grid">
+                <div class="tooltip">
+                    <img id="skillItem1" src="./images/criticalchance.png" onclick="skillCritical()" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="skillItem2" src="./images/powerstrike.png" onclick="skillStrike()" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="skillItem3" src="./images/haste.png" onclick="skillHaste()" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="skillItem4" src="./images/holysymbol.png" onclick="skillSymbol()" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="skillItem5" src="./images/rage.png" onclick="skillRage()" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <span>SP: <span id = "playerSP">0</span> </span>
+                <!-- Add more shop items as needed -->
+            </div>
+        </div>
+
+
+
+        <div class="achievement-panel panel hidden">
+            <p style="text-align: center">Achievements</p>
+            <div class="achievement-grid">
+                <div class="tooltip">
+                    <img id="a1" src="./images/medal.png" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="a2" src="./images/medal.png" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="a3" src="./images/medal.png"style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="a4" src="./images/medal.png" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="a5" src="./images/medal.png" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="a6" src="./images/medal.png" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="a7" src="./images/medal.png" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="a8" src="./images/medal.png" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="a9" src="./images/medal.png" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="a10" src="./images/medal.png" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="a11" src="./images/medal.png" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <div class="tooltip">
+                    <img id="a12" src="./images/medal.png" style="border: 2px solid powderblue;" data-cost = "1000">
+                </div>
+                <!-- Add more shop items as needed -->
+            </div>
+        </div>
+
+
+
+        <div class="right-panel">
+            <p>Monster</p>
+
+            <div class="button-row">
+                <button id="buttonLeft" type="button" onclick="selectLeftMob()"><-</button>
+                <button id="buttonRight" type="button" onclick="selectRightMob()">-></button>
+                <button id="buttonBoss" type="button" onclick="selectBossMob()">Boss</button>
+            </div>
+            
+            <div class ="timer hidden">
+                <span>Timer:
+                    <span id="bossCounter">
+                        0
+                    </span>
+                </span>
+            </div>
+
+            <br>
+            <br>
+            <img id="monsterPic" src="./images/snail.png"class="responsive-image">
+            <br>
+            <span>HP: 
+                <span id="monsterCurrentHP">8</span>
+                <span>/</span>
+                <span id="monsterMaxHP">8</span>
+                <progress id="monsterHPBar" value="100" max="100" style="accent-color:red"></progress>
+            </span>
+            <br>
+            <span>Name: <span id="currentEnemy">Snail</span></span>
+
+            <span>Level: <span id="enemyLevel">1</span></span>
+            
+            <span>Attack: <span id="enemyAttack">12</span></span>
+            
+            <span>Avoid: <span id="enemyAvoid">0</span></span>
+
+            <span>EXP: <span id="enemyEXP">3</span></span>
+            
+            <span>Hit Chance: <span id="hitRate">3</span></span>
+
+        </div>
+
+
+        <div class="inventory-panel">
+            <p style="text-align:center">Inventory</p>
+            <div class="inventory-grid">
+                <div class="tooltip">
+                    <img id="inv1" src="./images/empty.png" onclick="equipItem('inv1')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv2" src="./images/empty.png" onclick="equipItem('inv2')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv3" src="./images/empty.png" onclick="equipItem('inv3')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv4" src="./images/empty.png" onclick="equipItem('inv4')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv5" src="./images/empty.png" onclick="equipItem('inv5')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv6" src="./images/empty.png" onclick="equipItem('inv6')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv7" src="./images/empty.png" onclick="equipItem('inv7')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv8" src="./images/empty.png" onclick="equipItem('inv8')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv9" src="./images/empty.png" onclick="equipItem('inv9')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv10" src="./images/empty.png" onclick="equipItem('inv10')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv11" src="./images/empty.png" onclick="equipItem('inv11')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv12" src="./images/empty.png" onclick="equipItem('inv12')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv13" src="./images/empty.png" onclick="equipItem('inv13')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv14" src="./images/empty.png" onclick="equipItem('inv14')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv15" src="./images/empty.png" onclick="equipItem('inv15')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv16" src="./images/empty.png" onclick="equipItem('inv16')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv17" src="./images/empty.png" onclick="equipItem('inv13')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv18" src="./images/empty.png" onclick="equipItem('inv14')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv19" src="./images/empty.png" onclick="equipItem('inv15')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+                <div class="tooltip">
+                    <img id="inv20" src="./images/empty.png" onclick="equipItem('inv16')" style="border: 2px solid powderblue;" data-str="0" data-dex="0" data-att="0" data-armor="0" data-upgrades="0">
+                </div>
+
+                <button id="buttonSell" type="button" onclick="enableSell()">Sell</button>
+                <span>Mesos: 
+                    <span id="mesos">5</span>
+                </span>
+            </div>
+        </div>
+
+
+        
+
+    </div>
+    <script src="functions.js"></script>
+</body>
+<footer>
+</footer>
+</html>
